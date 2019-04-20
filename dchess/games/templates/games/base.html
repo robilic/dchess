@@ -3,15 +3,15 @@
 <html>
   <head>
     {% if title %}
-    <title>{{ title }} - Chess</title>
+    <title>{{ title }} - dChess</title>
     {% else %}
-    <title>Chess</title>
+    <title>dChess</title>
     {% endif %}
     <link rel="stylesheet" type="text/css" href="{% static 'chessgame.css' %}">
     <script src="{% static 'chessgame.js' %}"></script>
   </head>
   <body>
-    <div>Chesspug: <a href="/">{{ request.user }}</a>&nbsp;<a href="/">Home</a>&nbsp;<a href="{% url 'logout' %}">Logout</a></div>
+    <div>dChess: <a href="/">{{ request.user }}</a>&nbsp;<a href="/">Home</a>&nbsp;<a href="{% url 'logout' %}">Logout</a></div>
     <hr>
 
   {% block content %}
