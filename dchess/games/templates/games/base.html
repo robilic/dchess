@@ -1,0 +1,20 @@
+
+{% load static %}
+<html>
+  <head>
+    {% if title %}
+    <title>{{ title }} - Chess</title>
+    {% else %}
+    <title>Chess</title>
+    {% endif %}
+    <link rel="stylesheet" type="text/css" href="{% static 'chessgame.css' %}">
+    <script src="{% static 'chessgame.js' %}"></script>
+  </head>
+  <body>
+    <div>Chesspug: <a href="/">{{ request.user }}</a>&nbsp;<a href="/">Home</a>&nbsp;<a href="{% url 'logout' %}">Logout</a></div>
+    <hr>
+
+  {% block content %}
+  {% endblock %}
+  </body>
+</html>

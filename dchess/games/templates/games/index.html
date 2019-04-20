@@ -1,0 +1,18 @@
+{% extends 'games/base.html' %}
+
+{% block content %}
+
+{% if games_list %}
+    <ul>
+    {% for game in games_list %}
+        <li><a href="{% url 'games:game' game.id %}">{{ game.description }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No games are available.</p>
+{% endif %}
+<p>
+	<a href="{% url 'games:new' %}">Create a new game</a>
+</p>
+
+{% endblock %}

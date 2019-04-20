@@ -1,0 +1,79 @@
+
+
+python manage.py makemigrations
+python manage.py makemigrations games
+
+python manage.py migrate
+
+$ python manage.py createsuperuser
+Username: admin
+Email address: admin@admin.com
+Password: 
+Password (again): 
+This password is too common.
+Bypass password validation and create user anyway? [y/N]: y
+Superuser created successfully.
+peter
+toby
+djangostupid
+
+
+python manage.py shell
+
+from games.models import Game
+g = Game.objects.get(pk=1)
+
+
++Implement turns
++Check for valid player when moving/viewing games
+
+
+
+from django.shortcuts import render_to_response
+from django.template import RequestContext
+
+def handler404(request, *args, **argv):
+    response = render_to_response('main.html', {},
+                                  context_instance=RequestContext(request))
+    response.status_code = 200
+    return response
+
+
+
+
+TODO:
+
+Right now processMove returns ['invalid', 'some message']
+
+valid move should return ['valid', checkstatus]
+
+Player cannot put self in check (or stay in check)
+
+Don't allow moves if game status = 'over' (web page and engine)
+
+Move counter
+Move history
+
+Checkmate
+
+Castling
+Resign
+Win/draw
+
+Generic home page for signed in users
+Generic home page for guests
+Player Status/Profile Page
+
+Micro-board view for game preview
+Break template up into header/footer
+
+Flip board so 8 is on top of screen, not 1
+
+"Puzzle" mode - setup pieces interactively
+
+
+
+
+RNBKQBNRPPPPPPPP................................pppppppprnbkqbnr
+
+rnbkqbnrpppppppp................................PPPPPPPPRNBQKBNR

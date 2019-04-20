@@ -1,0 +1,21 @@
+{% extends 'games/base.html' %}
+
+{% block content %}
+
+	{% autoescape off %}
+	{{ output }}
+	{% endautoescape %}
+	<div id='game-id'>{{ game_id }}</div>
+	<p>
+		<div>Target: <span id="pieces"></span></div>
+	</p>
+
+ 	<p>Game: {{ game.description }}</p>
+
+	<p>Started: {{ game.start  }}</p>
+	<p>White: {{ game.white }}</p>
+	<p>Black: {{ game.black }}</p>
+	<p>Status: {{ game.status }}</p>
+	<p>Turn: {{ game.turn_color }}</p>
+
+{% endblock %}

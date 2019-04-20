@@ -1,0 +1,43 @@
+{% extends 'games/base.html' %}
+
+{% block content %}
+
+	<h2>Create a new game</h2>
+
+	{% if error_message %}
+		<p>
+			<strong>
+				{{ error_message }}
+			</strong>
+		</p>
+	{% endif %}
+
+	<form action="{% url 'games:create' %}" method="post">
+		{% csrf_token %}
+		<p>
+			<input type="radio" name="color" id="white" value="white">
+			<label for="white">White</label>
+			<input type="radio" name="color" id="black" value="black">
+			<label for="black">Black</label>
+		</p>
+		<p>
+			<label for="description">Description</label>
+			<input type="text" name="description" id="description">
+		</p>
+		<p>
+			<label for="challenger">Challenger</label>
+			<input type="number" name="challenger" id="challenger">
+		</p>
+		<p>
+			<input type="submit" value="Create">
+		</p>
+	</form>
+
+	<form action="{% url 'games:create' %}" method="post">
+		{% csrf_token %}
+		<p>
+			{{ form.as_table }}
+		</p>
+	</form>
+
+{% endblock %}

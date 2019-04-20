@@ -1,0 +1,66 @@
+
+body {
+	background-color: thistle;
+	font-family: sans-serif;
+}
+
+div#rawboard {
+	display: none;
+}
+div#game-id {
+	display: none;
+}
+
+div.square-top { 
+	height: 20px; 
+	width: 60px;
+	border: 0px;
+	padding: 0px;
+	margin: 0px;
+	background-color: DarkSeaGreen;
+	display: inline-block;
+	text-align: center;
+}
+div.square-side { 
+	height: 60px; 
+	width: 20px;
+	border: 0px;
+	padding: 0px;
+	margin: 0px;
+	background-color: DarkSeaGreen;
+	display: inline-block;
+	text-align: center;
+	vertical-align: bottom;
+}
+div.square-corner { 
+	height: 20px; 
+	width: 20px;
+	border: 0px;
+	padding: 0px;
+	margin: 0px;
+	background-color: DarkSeaGreen;
+	display: inline-block;
+	text-align: center;
+}
+div.squarew { 
+	height: 60px; 
+	width: 60px;
+	border: 0px;
+	padding: 0px;
+	margin: 0px;
+	background-color: white;
+	display: inline-block;
+	vertical-align: bottom;
+}
+div.squarew:hover { background-color: lightgray; }
+
+div.squareb { 
+	height: 60px; 
+	width: 60px;
+	border: 0px;
+	padding: 0px;
+	margin: 0px;
+	background-color: gray;
+	display: inline-block;
+}
+div.squareb:hover { background-color: lightgray; }

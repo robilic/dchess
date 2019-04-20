@@ -1,0 +1,12 @@
+{% extends 'games/base.html' %}
+
+{% block content %}
+
+	<h2>{{ game.description }}</h2>
+
+	<p>Started: {{ game.start }}</p>
+	<p>White: {{ game.white }}</p>
+	<p>Black: {{ game.black }}</p>
+	<p>Status: {{ game.status }}</p>
+
+{% endblock %}
