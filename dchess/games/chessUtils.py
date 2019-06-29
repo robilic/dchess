@@ -19,16 +19,17 @@ def boardHTML(board):
 
     output = output + "<br>"
 
-    for rc, row in enumerate(board):
-        output = output + "<div class=\"square-side\" >" + str(rc+1) + "</div>"
-        for cc, col in enumerate(row):
+    for rc, row in enumerate(board): # ranks
+        rank = (8-rc)
+        output = output + "<div class=\"square-side\" >" + str(rank) + "</div>"
+        for cc, col in enumerate(row): # files
             #print("Col = " + str(col), file=sys.stderr)
             if evenodd % 2 == 0:
                 output = output + "<div class=\"squarew\" "
             else:
                 output = output + "<div class=\"squareb\" "
 
-            coords = str(chr(cc+1+96)) + str(rc+1)
+            coords = str(chr(cc+1+96)) + str(rank)
             i = col
 
             if col == '.':
@@ -44,7 +45,7 @@ def boardHTML(board):
             evenodd = evenodd + 1
             rawBoard = rawBoard + i
         # start the next row as a different color
-        output = output + "<div class=\"square-side\" >" + str(rc+1) + "</div>"
+        output = output + "<div class=\"square-side\" >" + str(rank) + "</div>"
         evenodd = evenodd + 1
         output = output + "<br>\n"
 
@@ -176,7 +177,7 @@ def checkForCheck(color, board):
     for col in 'abcdefgh':
         for row in range(1, 9):
             x = toArrayCoords(toNumCoords(col))
-            y = toArrayCoords(row)
+            y = rankToArrayCoords(row)
             p = board[y][x]
             if color == 'black':
                 if p == 'k':
@@ -193,7 +194,7 @@ def checkForCheck(color, board):
     for col in 'abcdefgh':
         for row in range(1, 9):
             x = toArrayCoords(toNumCoords(col))
-            y = toArrayCoords(row)
+            y = rankToArrayCoords(row)
             p = board[y][x]
             if color == 'white':
                 if p.islower(): # is this a black piece?
@@ -219,8 +220,8 @@ def processMove(movestring, board):
     # convert c2c3 to 2,1  2, 2
     x1 = toArrayCoords(toNumCoords(movestring[0]))
     x2 = toArrayCoords(toNumCoords(movestring[2]))
-    y1 = toArrayCoords(int(movestring[1]))
-    y2 = toArrayCoords(int(movestring[3]))
+    y1 = rankToArrayCoords(int(movestring[1]))
+    y2 = rankToArrayCoords(int(movestring[3]))
 
     p = board[y1][x1]
     # you can't move a blank piece
@@ -247,7 +248,7 @@ def processMove(movestring, board):
     # PAWNS
     if p == 'p':
         # Pawn: Forward 1, diagonal 1, or forward 2 if first move
-        if y2 > y1: # are we moving 'up' the board
+        if y2 < y1: # are we moving 'up' the board
             if piececolor == 'black':
                 return ('invalid', 'wrong direction for black pawn')
         else: # we are moving 'down' the board'
@@ -259,9 +260,9 @@ def processMove(movestring, board):
 
         if piececolor == 'white':
             if abs(y1 - y2) == 2: # moving 2 squares
-                if y1 == 1: # first move of pawn, 2nd row, arrays start at 0
+                if y1 == 6: # first move of pawn, 2nd row, arrays start at 0
                     if x1 == x2: # make sure it's not diagonal
-                        if board[y2][x2] == '.' and board[y1+1][x2]: # if both squares ahead are empty, allow move
+                        if board[y2][x2] == '.' and board[y1-1][x2]: # if both squares ahead are empty, allow move
                             board[y2][x2] = board[y1][x1]
                             board[y1][x1] = '.'
                             return board
@@ -290,9 +291,9 @@ def processMove(movestring, board):
                         return ('invalid', 'pawn cannot capture own piece')
         else: # moving black
             if abs(y1 - y2) == 2: # moving 2 squares
-                if y1 == 6: # first move of pawn, 7th row, arrays start at 0
+                if y1 == 1: # first move of pawn, 7th row, arrays start at 0
                     if x1 == x2: # make sure it's not diagonal
-                        if board[y2][x2] == '.' and board[y1-1][x2]: # if both squares ahead are empty, allow move
+                        if board[y2][x2] == '.' and board[y1+1][x2]: # if both squares ahead are empty, allow move
                             board[y2][x2] = board[y1][x1]
                             board[y1][x1] = '.'
                             return board
@@ -451,13 +452,13 @@ def attemptMove(x1, y1, x2, y2, piececolor, board):
 def toNumCoords(c):
     return ord(c.lower()) - 96 # ascii 'a' is 97
 
-# convert 0, 1, 2 .. to 1, 2, 3 ..
-def toBoardCoords(i):
-    return i+1
-
 # convert 1, 2, 3 .. to 0, 1, 2 ..
 def toArrayCoords(i):
     return i-1
+
+# convert 8, 7, 6 .. to 0, 1, 2 ..
+def rankToArrayCoords(i):
+    return 8-i
 
 def isMoveOnBoard(x1,x2,y1,y2):
     if x1 > 7 or x1 < 0:

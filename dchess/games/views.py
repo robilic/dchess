@@ -60,8 +60,12 @@ def move(request, game_id, movestring):
 
 	# check the first peice to see if it's their peice
 	x = cu.toArrayCoords(cu.toNumCoords(movestring[0]))
-	y = cu.toArrayCoords(int(movestring[1]))
+	y = cu.rankToArrayCoords(int(movestring[1]))
 	print("Turn = ", game.turn, " and movestring[:2] is ", movestring[:2], " x,y = ", x, ", ", y)
+	dx = cu.toArrayCoords(cu.toNumCoords(movestring[2]))
+	dy = cu.rankToArrayCoords(int(movestring[3]))
+	print("movestring[2:2] is", movestring[2:4], " x,y = ", dx, ", ", dy)
+	print("Piece is ", board[y][x])
 
 	if game.turn == 0: # black's turn
 		if board[y][x].isupper():
