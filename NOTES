@@ -43,6 +43,20 @@ def handler404(request, *args, **argv):
 
 TODO:
 
+Banner (highlight the player who's move it is)
+Player 1 White     CHESS GAME     Player 2 Black
+
+Move History
+a1e3
+a2f2
+...
+
+Create a home page with options to view current games, create new game, view profile
+
+Add castling:
+  King_moved, r1_moved, r2_moved attributes for game
+  Check for king moving next to rook
+
 Right now processMove returns ['invalid', 'some message']
 
 valid move should return ['valid', checkstatus]

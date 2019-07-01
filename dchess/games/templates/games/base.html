@@ -11,7 +11,7 @@
     <script src="{% static 'chessgame.js' %}"></script>
   </head>
   <body>
-    <div>dChess: <a href="/">{{ request.user }}</a>&nbsp;<a href="/">Home</a>&nbsp;<a href="{% url 'logout' %}">Logout</a></div>
+    <div>dChess: {{ request.user }}&nbsp;<a href="{% url 'games:index' %}">Home</a>&nbsp;<a href="{% url 'logout' %}">Logout</a></div>
     <hr>
 
   {% block content %}

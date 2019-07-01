@@ -23,7 +23,7 @@ from dchess import views
 
 urlpatterns = [
     path('', views.index, name='index'),
-    path('games/', include('games.urls')),
+    path('games/', include('games.urls'), name='games'),
     path('admin/', admin.site.urls),
     path('accounts/', include('django.contrib.auth.urls')),
 ]

@@ -7,15 +7,20 @@
 	{% endautoescape %}
 	<div id='game-id'>{{ game_id }}</div>
 	<p>
-		<div>Target: <span id="pieces"></span></div>
+		<div style="display: none;">Target: <span id="pieces"></span></div>
 	</p>
 
- 	<p>Game: {{ game.description }}</p>
+	<div id='game-banner'>
+		<span>{{ game.white }}</span>
+		<img src='/static/images/p/wn.png'>
+		<span class="logo-text">dChess</span>
+		<img src='/static/images/p/bn.png'>
+		<span>{{ game.black }}</span>
+	</div>
 
-	<p>Started: {{ game.start  }}</p>
-	<p>White: {{ game.white }}</p>
-	<p>Black: {{ game.black }}</p>
-	<p>Status: {{ game.status }}</p>
+ 	<p>Game: {{ game.description }}</p>
 	<p>Turn: {{ game.turn_color }}</p>
+	<p>Started: {{ game.start  }}</p>
+	<p style="display: none;">Status: {{ game.status }}</p>
 
 {% endblock %}

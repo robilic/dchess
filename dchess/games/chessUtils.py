@@ -40,7 +40,7 @@ def boardHTML(board):
                     code = "b" + i.lower()
                 else:
                     code = "w" + i.lower()
-                output = output + "onclick=\"addPiece('" + coords + "')\" style=\"background-image: url('/static/images/" + code + ".png')\"></div>"
+                output = output + "onclick=\"addPiece('" + coords + "')\" style=\"background-image: url('/static/images/p/" + code + ".png')\"></div>"
             
             evenodd = evenodd + 1
             rawBoard = rawBoard + i
