@@ -153,8 +153,6 @@ def writeBoardFile(filename, board):
     return
 
 def isPlayersTurn(player, game):
-    print("Game: ", game.turn_color())
-    print("Player ID: ", player.id)
     if game.turn_color() == 'black':
         if player.id != game.black.id:
             return False

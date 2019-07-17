@@ -22,5 +22,10 @@
 	<p>Turn: {{ game.turn_color }}</p>
 	<p>Started: {{ game.start  }}</p>
 	<p style="display: none;">Status: {{ game.status }}</p>
-
+	<p>Move History:</p>
+	<pre>
+		{% for mh in move_history %}
+		{{ mh.move }} | {{ mh.white }} | {{ mh.black }}
+		{% endfor %}
+	</pre>
 {% endblock %}
