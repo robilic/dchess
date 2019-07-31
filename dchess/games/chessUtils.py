@@ -61,6 +61,62 @@ def boardHTML(board):
     #print(output, file=sys.stderr)
     return output
 
+def thumbnailBoardHTML(board):
+    output = "" # board in HTML 
+    rawBoard = "" # string representation of board
+    evenodd = 0 # upper left corner is white square
+    output = ""
+
+    output = output + "<div class=\"square-corner\" >&nbsp;</div>"
+
+    for cols in 'abcdefgh':
+        output = output + "<div class=\"square-top\" >" + cols + "</div>"
+
+    output = output + "<div class=\"square-corner\" >&nbsp;</div>"
+
+    output = output + "<br>"
+
+    for rc, row in enumerate(board): # ranks
+        rank = (8-rc)
+        output = output + "<div class=\"square-side\" >" + str(rank) + "</div>"
+        for cc, col in enumerate(row): # files
+            #print("Col = " + str(col), file=sys.stderr)
+            if evenodd % 2 == 0:
+                output = output + "<div class=\"squarew\" "
+            else:
+                output = output + "<div class=\"squareb\" "
+
+            coords = str(chr(cc+1+96)) + str(rank)
+            i = col
+
+            if col == '.':
+                output = output + "onclick=\"addPiece('" + coords + "')\"></div>"
+            else:
+                # if there's a peice here get the image
+                if i.islower(): # is piece black?
+                    code = "b" + i.lower()
+                else:
+                    code = "w" + i.lower()
+                output = output + "onclick=\"addPiece('" + coords + "')\" style=\"background-image: url('/static/images/p/" + code + ".png')\"></div>"
+            
+            evenodd = evenodd + 1
+            rawBoard = rawBoard + i
+        # start the next row as a different color
+        output = output + "<div class=\"square-side\" >" + str(rank) + "</div>"
+        evenodd = evenodd + 1
+        output = output + "<br>\n"
+
+        # <div class="square1" onclick="addPiece('h1');"></div>
+
+    output = output + "<div class=\"square-corner\" >&nbsp;</div>"
+
+    for cols in 'abcdefgh':
+        output = output + "<div class=\"square-top\" >" + cols + "</div>"
+
+    output = output + "<div class=\"square-corner\" >&nbsp;</div>"
+    output = output + "<br><div id=\"rawboard\">" + rawBoard + "</div>"
+    #print(output, file=sys.stderr)
+    return output
 
 def printBoard(board):
     print("  a b c d e f g h")

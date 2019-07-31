@@ -1,33 +1,6 @@
 
-
-python manage.py makemigrations
-python manage.py makemigrations games
-
-python manage.py migrate
-
-$ python manage.py createsuperuser
-Username: admin
-Email address: admin@admin.com
-Password: 
-Password (again): 
-This password is too common.
-Bypass password validation and create user anyway? [y/N]: y
-Superuser created successfully.
-peter
-toby
-djangostupid
-
-
-python manage.py shell
-
 from games.models import Game
 g = Game.objects.get(pk=1)
-
-
-+Implement turns
-+Check for valid player when moving/viewing games
-
-
 
 from django.shortcuts import render_to_response
 from django.template import RequestContext
@@ -40,39 +13,32 @@ def handler404(request, *args, **argv):
 
 
 
-
 TODO:
+
++Implement turns
++Check for valid player when moving/viewing games
++Flip board so 8 is on top of screen, not 1
++Move History
++Player cannot put self in check (or stay in check)
 
 Banner (highlight the player who's move it is)
 Player 1 White     CHESS GAME     Player 2 Black
 
-Move History
-a1e3
-a2f2
-...
-
-Create a home page with options to view current games, create new game, view profile
+Official syntax for move history
 
 Add castling:
   King_moved, r1_moved, r2_moved attributes for game
   Check for king moving next to rook
 
 Right now processMove returns ['invalid', 'some message']
-
 valid move should return ['valid', checkstatus]
 
-Player cannot put self in check (or stay in check)
+Game status - playing, x resign, x checkmate, x time
 
-Don't allow moves if game status = 'over' (web page and engine)
-
-Move counter
-Move history
-
-Checkmate
-
-Castling
-Resign
 Win/draw
+Don't allow moves if game status = 'over' (web page and engine)
+Check for checkmate
+Allow for players to resign
 
 Generic home page for signed in users
 Generic home page for guests
@@ -81,13 +47,62 @@ Player Status/Profile Page
 Micro-board view for game preview
 Break template up into header/footer
 
-Flip board so 8 is on top of screen, not 1
 
 "Puzzle" mode - setup pieces interactively
 
 
 Sample boards in starting position:
 
-RNBKQBNRPPPPPPPP................................pppppppprnbkqbnr
-
+'rnbkqbnrpppppppp................................PPPPPPPPRNBQKBNR'
 rnbkqbnrpppppppp................................PPPPPPPPRNBQKBNR
+
+Castling
+
+CastleStatus = Queen, King, Both, None (can caste to king/queenside, both, or none)
+
+King moves to non-castle position, CasteStatus becomes none
+
+Rook moves = if both, opposite of rook that moves, if opposite, then none
+
+If white king moving to a1 or g1 (move next to rook)
+	check for CasteStatus
+	check for blank squares
+	check for check after
+	check for check before
+
+Same checks for black king moving to a8 or g8
+
+
+
+Setup Script for New Database
+
+rm dchess/db.sqlite3
+python3 manage.py makemigrations
+python3 manage.py migrate
+python3 manage.py createsuperuser 
+
+admin, admin@local, secret1
+
+python3 manage.py shell
+
+from models import User
+from models.game import Game
+from django.utils import timezone
+import pytz
+
+u = User.objects.create_user(username='robert', email='robert@local', password='secret1')
+u.save()
+u = User.objects.create_user(username='tom', email='tom@local', password='secret1')
+u.save()
+
+g = Game()
+g.white = User.objects.get(pk=2)
+g.black = User.objects.get(pk=3)
+g.creator = User.objects.get(pk=2)
+g.challenger = User.objects.get(pk=3)
+g.board = 'rnbkqbnrpppppppp................................PPPPPPPPRNBQKBNR'
+g.description = 'Test game'
+g.start = timezone.now()
+g.save()
+
+

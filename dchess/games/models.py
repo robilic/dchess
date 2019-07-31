@@ -14,6 +14,8 @@ class Game(models.Model):
     end = models.DateTimeField(null=True, blank=True)
     board = models.CharField(max_length=64, default='rnbqkbnrpppppppp................................PPPPPPPPRNBQKBNR')
     description = models.CharField(max_length=64)
+    castlestatus_w = models.CharField(max_length=8, default='both')
+    castlestatus_b = models.CharField(max_length=8, default='both')
 
     def turn_color(self):
     	if self.turn == 1:
